@@ -5,7 +5,7 @@ provider "google" {
 
 
 resource "google_folder" "example_folder" {
-  count        = var.folder_name != null ? 1 : 0
+  count        = var.folder_name != null && var.organization_id != null ? 1 : 0
   display_name = var.folder_name
   parent       = "organizations/${var.organization_id}"
 }
@@ -18,7 +18,7 @@ resource "random_id" "project_suffix" {
 resource "google_project" "example_project" {
   name           = var.project_name
   project_id     = "${var.project_name}-${random_id.project_suffix.hex}"
-  folder_id      = var.folder_name != null ? google_folder.example_folder[0].name : null
+  folder_id      = var.folder_name != null && var.organization_id != null ? google_folder.example_folder[0].name : null
   billing_account = var.billing_account
 }
 
