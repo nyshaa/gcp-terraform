@@ -18,8 +18,7 @@ resource "random_id" "project_suffix" {
 resource "google_project" "example_project" {
   name           = var.project_name
   project_id     = "${var.project_name}-${random_id.project_suffix.hex}"
-  #folder_id      = var.folder_name != null && var.organization_id != null ? google_folder.example_folder[0].name : null
-  folder_id      = var.folder_name != null && var.organization_id != null ? google_folder.example_folder.name : null
+  folder_id      = var.folder_name != null && var.organization_id != null ? google_folder.example_folder[0].name : null
   billing_account = var.billing_account
 }
 
