@@ -20,6 +20,10 @@ resource "google_project" "example_project" {
   project_id     = "${var.project_name}-${random_id.project_suffix.hex}"
   folder_id      = var.folder_name != null && var.organization_id != null ? google_folder.example_folder[0].name : null
   billing_account = var.billing_account
+
+  lifecycle {
+    prevent_destroy = false  # Allows deletion when running terraform destroy
+  }
 }
 
 resource "google_project_service" "project_services" {
